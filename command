@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File C:\Users\rahma\AppData\Roaming\npm\json-server.ps1 -w db.json
