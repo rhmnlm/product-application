@@ -52,8 +52,8 @@ function App() {
                                                 <tr key={products.id}>
                                                       <td>{products.id}</td>
                                                       <td>
-                                                            <a href="# ">
-                                                            {products.code}
+                                                            <a href="# " onClick={() => setModalShow(true)}>
+                                                                  {products.code}
                                                             </a>
                                                       </td>
                                                       <td>{products.name}</td>
