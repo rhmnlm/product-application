@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import APIService from "./api/api";
 import Pagination from './component/Pagination';
 import ProductModal from './component/ProductModal';
@@ -11,6 +11,8 @@ function App() {
 
       const [data, setData] = useState(null);
 
+      const [product, setProduct] = useState({});
+
       const [page, setPage] = useState({
             pageNum: 0,
             pageSize: 5
@@ -18,28 +20,40 @@ function App() {
 
       const [modalShow, setModalShow] = useState(false);
 
+      //1. Create 2. Edit
+      const [productModalState, setProductModalState] = useState("Create");
+
       useEffect(() => {
             APIService.getProductsPaged(page.pageNum, page.pageSize).then((response)=>{
                   setData(response.data)
-                  // setPage(
-                  //       {
-                  //             ...page,
-                  //             lastPage: response.data.totalPages -1
-                  //       }
-                  // )
                   console.log(response)
             })
       }, [page]);
 
-  if(!data) return null;
+      function onClickItem(products){
+            setProduct(products)
+            setModalShow(true)
+            setProductModalState("Edit")
+      }
+
+      function onAddNewItem(e){
+            setProduct()
+            setModalShow(true)
+            setProductModalState("Create")
+      }
+
+  if(!data) return <>Error!</>;
 
   return (
     <div className="App">
         <Container>
+            <div className="mb3">
+                  <Button variant='primary' onClick={() => onAddNewItem()} style={{display:"flex", justifyContent:"left", marginBottom:"5pt", marginTop: "5pt"}}>Create New Product</Button>
+            </div>
             <Table striped bordered hover>
                   <thead>
                         <tr>
-                              <th><button onClick={() => setModalShow(true)}>show table data</button>
+                              <th>
                                     ID</th> <th>Code</th> <th>Name</th> <th>Category</th> <th>Brand</th> <th>Type</th> <th>Description</th>
                         </tr>
                   </thead>
@@ -52,7 +66,7 @@ function App() {
                                                 <tr key={products.id}>
                                                       <td>{products.id}</td>
                                                       <td>
-                                                            <a href="# " onClick={() => setModalShow(true)}>
+                                                            <a href="# " onClick={() => onClickItem(products)}>
                                                                   {products.code}
                                                             </a>
                                                       </td>
@@ -73,7 +87,7 @@ function App() {
           </Table>
           <Pagination page={page} setPage={setPage} lastPage={data.totalPages}/> 
         </Container>
-        <ProductModal show={modalShow} onHide={() => setModalShow(false)}/>
+        <ProductModal show={modalShow} onHide={() => setModalShow(false)} product={product} setProduct={setProduct} productModalState={productModalState}/>
     </div>
   );
 }
