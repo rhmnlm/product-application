@@ -102,7 +102,7 @@ function ProductModal(props){
                         </div>
                         <div className="mb-3">
                               <label className="form-label" htmlFor="description">Description</label>
-                              <textarea placeholder={product? product.description : 'Enter Description'} type="text" id="description" className="form-control" onChange={(e)=>onInputChange(e)}/>
+                              <textarea rows={5} placeholder={product? product.description : 'Enter Description'} type="text" id="description" className="form-control" onChange={(e)=>onInputChange(e)}/>
                         </div>
                   </Modal.Body>
                   <Modal.Footer>

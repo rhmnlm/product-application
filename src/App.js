@@ -6,6 +6,7 @@ import { Button, Container } from 'react-bootstrap';
 import APIService from "./api/api";
 import Pagination from './component/Pagination';
 import ProductModal from './component/ProductModal';
+import CustomAlert from './component/Alert';
 
 function App() {
 
@@ -19,6 +20,14 @@ function App() {
             })
 
       const [modalShow, setModalShow] = useState(false);
+
+      const [alertShow, setAlertShow] = useState(false);
+
+      const [alertContent, setAlertContent] = useState({
+            title: "",
+            type: "",
+            message: ""
+      })
 
       //1. Create 2. Edit
       const [productModalState, setProductModalState] = useState("Create");
@@ -88,6 +97,7 @@ function App() {
           <Pagination page={page} setPage={setPage} lastPage={data.totalPages}/> 
         </Container>
         <ProductModal show={modalShow} onHide={() => setModalShow(false)} product={product} setProduct={setProduct} productModalState={productModalState}/>
+        <CustomAlert show={modalShow} onHide={() => setModalShow(false)} product={product} setProduct={setProduct} productModalState={productModalState}/>
     </div>
   );
 }
