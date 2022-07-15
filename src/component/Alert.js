@@ -1,13 +1,10 @@
 //TODO
-
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function CustomAlert(props){
 
     const {alertState, onHide} = props;
-    const {alertContent, setAlertContent, alertShow, setAlertShow} = alertState;
+    const {alertContent, alertShow} = alertState;
 
     return(
         <>

@@ -7,7 +7,7 @@ function ProductModal(props){
 
       const {product, setProduct, onHide, show, productModalState, alertState} = props;
 
-      const {alertContent, setAlertContent, alertShow, setAlertShow} = alertState;
+      const {alertContent, setAlertContent, setAlertShow} = alertState;
 
       const [formValidation , setFormValidation] = useState({
             code: true,
