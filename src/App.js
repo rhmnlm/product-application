@@ -29,6 +29,10 @@ function App() {
             message: ""
       })
 
+      const alertState = {
+            alertContent, setAlertContent, alertShow, setAlertShow
+      }
+
       //1. Create 2. Edit
       const [productModalState, setProductModalState] = useState("Create");
 
@@ -96,8 +100,8 @@ function App() {
           </Table>
           <Pagination page={page} setPage={setPage} lastPage={data.totalPages}/> 
         </Container>
-        <ProductModal show={modalShow} onHide={() => setModalShow(false)} product={product} setProduct={setProduct} productModalState={productModalState}/>
-        <CustomAlert show={modalShow} onHide={() => setModalShow(false)} product={product} setProduct={setProduct} productModalState={productModalState}/>
+        <ProductModal alertState={alertState} show={modalShow} onHide={() => setModalShow(false)} product={product} setProduct={setProduct} productModalState={productModalState}/>
+        <CustomAlert alertState={alertState} onHide={()=> setAlertShow(false)}/>
     </div>
   );
 }

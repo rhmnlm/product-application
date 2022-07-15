@@ -6,26 +6,26 @@ import Modal from 'react-bootstrap/Modal';
 
 function CustomAlert(props){
 
-    const {product, setProduct, onHide, show, productModalState} = props;
-    const [title, setTitle] = useState("Success")
+    const {alertState, onHide} = props;
+    const {alertContent, setAlertContent, alertShow, setAlertShow} = alertState;
 
     return(
         <>
             <Modal
                   onHide={onHide}
-                  show={show}
+                  show={alertShow}
                   size="sm"
                   aria-labelledby="contained-modal-title-vcenter"
                   keyboard={false}
-                  className={"customModalAlert"}
+                  className={alertContent.type ==="Success" ? "customModalAlertSuccess" : "customModalAlertFail"}
             >
                   <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                        {title}
+                        {alertContent.title}
                         </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    Something went wrong in the server.
+                    {alertContent.message}
                   </Modal.Body>
             </Modal>
 

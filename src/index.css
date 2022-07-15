@@ -12,21 +12,21 @@ code {
     monospace;
 }
 
-.customModalAlert {
+.customModalAlertFail {
   z-index: 1060;
   color: #842029;
 }
 
-.customModalAlert .modal-content{
+.customModalAlertFail .modal-content{
   border-color: #f5c2c7;
   background-color: #f8d7da;
 }
 
-.customModalAlert .modal-header {
+.customModalAlertFail .modal-header {
   border-bottom: 1px solid #f5c2c7;
 }
 
-.customModalAlert .modal-footer {
+.customModalAlertFail .modal-footer {
   display: flex;
   flex-wrap: wrap;
   flex-shrink: 0;

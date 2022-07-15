@@ -5,14 +5,15 @@ import { useState } from 'react';
 
 function ProductModal(props){
 
-      const {product, setProduct, onHide, show, productModalState} = props;
+      const {product, setProduct, onHide, show, productModalState, alertState} = props;
+
+      const {alertContent, setAlertContent, alertShow, setAlertShow} = alertState;
 
       const [formValidation , setFormValidation] = useState({
             code: true,
             name: true,
             category: true
       })
-
 
       function onSaveClick(product){
 
@@ -24,8 +25,47 @@ function ProductModal(props){
             if(validated === true){
                   productModalState === "Create" ?
                         APIService.addNewProduct(product)
+                        .then(()=>{
+                              setAlertContent({
+                                    ...alertContent,
+                                    title: "Success",
+                                    type: "Success",
+                                    message: "Successfully added a product"
+                              })
+
+                              setAlertShow(true)
+                        })
+                        .catch((error)=>{
+                              setAlertContent({
+                                    ...alertContent,
+                                    title: "Error",
+                                    type: "Fail",
+                                    message: "There's something wrong in the server"
+                              })
+
+                              setAlertShow(true)
+                        })
                         :
                         APIService.updateProduct(product)
+                        .then(()=>{
+                              setAlertContent({
+                                    ...alertContent,
+                                    title: "Success",
+                                    type: "Success",
+                                    message: "Successfully update the product"
+                              })
+                              setAlertShow(true)
+                        })
+                        .catch((error)=>{
+                              setAlertContent({
+                                    ...alertContent,
+                                    title: "Error",
+                                    type: "Fail",
+                                    message: "There's something wrong in the server"
+                              })
+
+                              setAlertShow(true)
+                        })
                   onHide();
             }
             
