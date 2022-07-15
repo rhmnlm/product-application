@@ -18,11 +18,10 @@ function ProductModal(props){
       function onSaveClick(product){
 
             //validation
-            
-            //let validated = validate(product)
-            let validated = true
 
-            if(validated === true){
+            const validated = validate(product)
+            
+            if(validated){
                   productModalState === "Create" ?
                         APIService.addNewProduct(product)
                         .then(()=>{
@@ -82,21 +81,32 @@ function ProductModal(props){
       //TODO
       function validate(product){
 
-            product && product.code? product.code === '' ? 
-                  setFormValidation({...formValidation, code:false}) : setFormValidation({...formValidation, code:true})
-                  : setFormValidation({...formValidation, code:false});
+            let validCode = false
+            let validName = false
+            let validCategory = false
 
+            if(product)
+                  if(product.code)
+                        validCode = true
+
+            if(product)
+                  if(product.name)
+                        validName = true
             
-            product && product.name? product.name === '' ? 
-                  setFormValidation({...formValidation, name:false}) : setFormValidation({...formValidation, name:true})
-                  : setFormValidation({...formValidation, name:false});
+            if(product)
+                  if(product.category)
+                        validCategory = true
+
+            setFormValidation(
+                  {
+                        code: validCode,
+                        name: validName,
+                        category: validCategory
+                  }
+            )
             
-            product && product.category? product.category === '' ? 
-                  setFormValidation({...formValidation, category:false}) : setFormValidation({...formValidation, category:true})
-                  : setFormValidation({...formValidation, category:false});
-            
-            // if(product && product.category !== '' && product && product.name !== '' && product && product.code !== '')
-            //       return true;
+            if(validCategory && validCode && validName)
+                  return true;
             
             return false;
       }
